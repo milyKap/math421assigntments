@@ -1,0 +1,187 @@
+---
+title: "Assignment 3"
+format: html
+editor: visual
+---
+
+***How to do it?***:
+
+-   Open the Quarto file of this assignment ([link](assignment3.qmd)) in Rstudio.
+
+-   Right under each **question**, insert a code chunk (you can use the hotkey `Ctrl + Alt + I` to add a code chunk) and code the solution for the question.
+
+-   `Knit` the rmarkdown file (hotkey: `Ctrl + Alt + K`) to export an html.
+
+-   Publish the html file to your Githiub Page.
+
+***Submission***: Submit the link on Github of the assignment to Canvas.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+```
+
+------------------------------------------------------------------------
+
+## Problems
+
+\
+
+1.  Create the following data frame
+
+| Rank | Age | Name  |
+|:-----|:----|:------|
+| 0    | 28  | Tom   |
+| 1    | 34  | Jack  |
+| 2    | 29  | Steve |
+| 3    | 42  | Ricky |
+
+2.  Use `read.csv` to import the Covid19 Vaccination data from WHO: [link](https://bryantstats.github.io/math421/data/us-states.csv).
+
+    ```         
+    setwd("C:/Users/student/OneDrive - Bryant University/RStudio/AM421")
+    df <-  read.csv('us-states.csv')
+    ```
+
+3.  Show the names of the variables in the data
+
+```{names(df)}
+```
+
+4.  How many columns and rows the data have?
+
+    ```         
+    nrow(df) 
+    ncol(df)
+    ```
+
+5.  How many missing values are there? Show the missing values by columns. What variable has the most number of missing values?
+
+    ```         
+    sum(is.na(df))
+    this actually tells us there are no missing values in this dataset
+    ```
+
+6.  What is the class of the `date` column. Change the `date` columns to `date` type using the `as.Date` function. Show the new class of the `date` column.
+
+    ```         
+    class(df$date)
+    df$date <- as.Date(df$date)
+    class(df$date)
+    ```
+
+7.  Capitalize the names of all the variables
+
+    ```         
+    names(df) <- toupper(names(df))
+    names(df)
+    ```
+
+8.  Find the average number of cases per day. Find the maximum cases a day.
+
+    ```         
+    mean(df$CASES)
+    ```
+
+9.  How many states are there in the data?
+
+    ```         
+    unique(df$STATE)
+    ```
+
+10. Create a new variable `weekdays` to store the weekday for each rows.
+
+    df\$weekdays \<- weekdays(df\$DATE)
+
+    df\$weekdays
+
+11. Create the categorical variable `death2` variable taking the values as follows
+
+-   `has_death` if there is a death that day
+
+-   `no_death` if there is no death that day
+
+    ```         
+    ```
+
+Find the frequency and relative frequency of `no_death` and `has_death`.
+
+df$death2 <- ifelse(df$DEATHS \> 0, "has_death", "no_death")
+
+df\$death2
+
+12. Find the first quartile (Q1), second quartile (Q2) and and third quartile (Q3) of the variable `death`. (Hint: Use the `summary` function)
+
+    ```         
+    summary(df$DEATHS)
+    ```
+
+13. Create the categorical variable `death3` variable taking the values as follows
+
+-   `low_death` if the number of deaths smaller than the 25 percentile (Q1)
+
+-   `mid_death` if the number of deaths from Q1 to Q3
+
+-   `high_death` if the number of deaths greater than Q3
+
+    Q1 \<- quantile(df$DEATHS, 0.25)
+    Q3 <- quantile(df$DEATHS, 0.75)
+
+    df\$death3 \<- ifelse(df\$DEATHS \< Q1, "low_death", ifelse(df\$DEATHS \<= Q3, "mid_death", "high_death"))
+
+df\$death3
+
+14. Find the average cases in Rhode Island in 2021
+
+    mean(df$CASES[df$STATE == "Rhode Island" & format(df\$DATE, "%Y") == "2021"\]) (the dollar signs keep making italics)
+
+15. Find the median cases by weekdays in Rhode Island in 2021
+
+    RI_2021 \<- df\[df$STATE == "Rhode Island" &
+                  format(df$DATE, "%Y") == "2021", \]
+
+    by(RI_2021$CASES, RI_2021$weekdays, median)
+
+16. Compare the median cases in Rhode Island in June, July, August and September in 2021.
+
+    RI_2021 \<- df\[df$STATE == "Rhode Island" &
+                  format(df$DATE, "%Y") == "2021", \]
+
+    RI_2021
+
+17. Find your own dataset, import it and implement the following functions on the data
+
+-   head
+-   str
+-   names
+-   mean, min, max
+-   table
+-   is.na
+-   colSums
+-   class
+-   cor
+-   by
+-   ifelse
+-   case_when
+
+18. In the dataset in #17, practice the follows. You can reuse the code of 17.
+
+-   Create a categorical variable from a continuous variable
+
+    ```         
+    my_data$age_group <- case_when( +     my_data$age < 30 ~ "Under 30", +     my_data$age < 50 ~ "30-49", +     my_data$age >= 50 ~ "50+" + ) table(my_data$age_group)
+    ```
+
+-   From one categorical variable, create a new categorical variable with fewer categories
+
+    my_data$education_group <- case_when(
+      my_data$education == "Bachelors" \| my_data$education == "Masters" |
+      my_data$education == "Doctorate" \~ "College",
+
+    my_data$education == "HS-grad" |
+      my_data$education == "Some-college" \~ "High School/Some College",
+
+    TRUE \~ "Other" )
+
+    table(my_data\$education_group)
+
+If you do not have a data, you can use [the titanic dataset](https://www.kaggle.com/competitions/titanic/overview), which can be downloaded at [this link](https://bryantstats.github.io/math421/data/titanic.csv)
