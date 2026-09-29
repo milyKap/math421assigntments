@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -34,35 +68,6 @@ ul.task-list li input[type="checkbox"] {
 <link href="assignment3q_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="assignment3q_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -140,32 +145,116 @@ window.Quarto = {
 </table>
 <ol start="2" type="1">
 <li><p>Use <code>read.csv</code> to import the Covid19 Vaccination data from WHO: <a href="https://bryantstats.github.io/math421/data/us-states.csv">link</a>.</p>
-<pre><code>setwd("C:/Users/student/OneDrive - Bryant University/RStudio/AM421")
-df &lt;-  read.csv('us-states.csv')</code></pre></li>
+<pre><code></code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'us-states.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
 <li><p>Show the names of the variables in the data</p></li>
 </ol>
-<pre class="{names(df)}"><code></code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "date"   "state"  "fips"   "cases"  "deaths"</code></pre>
+</div>
+</div>
 <ol start="4" type="1">
 <li><p>How many columns and rows the data have?</p>
-<pre><code>nrow(df) 
-ncol(df)</code></pre></li>
+<pre><code></code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 51078</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div></li>
 <li><p>How many missing values are there? Show the missing values by columns. What variable has the most number of missing values?</p>
-<pre><code>sum(is.na(df))
-this actually tells us there are no missing values in this dataset</code></pre></li>
+<pre><code></code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#this actually tells us there are no missing values in this dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
 <li><p>What is the class of the <code>date</code> column. Change the <code>date</code> columns to <code>date</code> type using the <code>as.Date</code> function. Show the new class of the <code>date</code> column.</p>
-<pre><code>class(df$date)
-df$date &lt;- as.Date(df$date)
-class(df$date)</code></pre></li>
+<pre><code></code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Date"</code></pre>
+</div>
+</div></li>
 <li><p>Capitalize the names of all the variables</p>
-<pre><code>names(df) &lt;- toupper(names(df))
-names(df)</code></pre></li>
+<pre><code></code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df) <span class="ot">&lt;-</span> <span class="fu">toupper</span>(<span class="fu">names</span>(df))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "DATE"   "STATE"  "FIPS"   "CASES"  "DEATHS"</code></pre>
+</div>
+</div></li>
 <li><p>Find the average number of cases per day. Find the maximum cases a day.</p>
-<pre><code>mean(df$CASES)</code></pre></li>
+<pre><code></code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>CASES)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 700593.4</code></pre>
+</div>
+</div></li>
 <li><p>How many states are there in the data?</p>
-<pre><code>unique(df$STATE)</code></pre></li>
+<pre><code></code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(df<span class="sc">$</span>STATE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Washington"               "Illinois"                
+ [3] "California"               "Arizona"                 
+ [5] "Massachusetts"            "Wisconsin"               
+ [7] "Texas"                    "Nebraska"                
+ [9] "Utah"                     "Oregon"                  
+[11] "Florida"                  "New York"                
+[13] "Rhode Island"             "Georgia"                 
+[15] "New Hampshire"            "North Carolina"          
+[17] "New Jersey"               "Colorado"                
+[19] "Maryland"                 "Nevada"                  
+[21] "Tennessee"                "Hawaii"                  
+[23] "Indiana"                  "Kentucky"                
+[25] "Minnesota"                "Oklahoma"                
+[27] "Pennsylvania"             "South Carolina"          
+[29] "District of Columbia"     "Kansas"                  
+[31] "Missouri"                 "Vermont"                 
+[33] "Virginia"                 "Connecticut"             
+[35] "Iowa"                     "Louisiana"               
+[37] "Ohio"                     "Michigan"                
+[39] "South Dakota"             "Arkansas"                
+[41] "Delaware"                 "Mississippi"             
+[43] "New Mexico"               "North Dakota"            
+[45] "Wyoming"                  "Alaska"                  
+[47] "Maine"                    "Alabama"                 
+[49] "Idaho"                    "Montana"                 
+[51] "Puerto Rico"              "Virgin Islands"          
+[53] "Guam"                     "West Virginia"           
+[55] "Northern Mariana Islands" "American Samoa"          </code></pre>
+</div>
+</div></li>
 <li><p>Create a new variable <code>weekdays</code> to store the weekday for each rows.</p>
-<p>df$weekdays &lt;- weekdays(df$DATE)</p>
-<p>df$weekdays</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>weekdays <span class="ot">&lt;-</span> <span class="fu">weekdays</span>(df<span class="sc">$</span>DATE)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>weekdays)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   Friday    Monday  Saturday    Sunday  Thursday   Tuesday Wednesday 
+     7315      7280      7324      7275      7302      7286      7296 </code></pre>
+</div>
+</div></li>
 <li><p>Create the categorical variable <code>death2</code> variable taking the values as follows</p></li>
 </ol>
 <ul>
@@ -174,33 +263,106 @@ names(df)</code></pre></li>
 <pre><code></code></pre></li>
 </ul>
 <p>Find the frequency and relative frequency of <code>no_death</code> and <code>has_death</code>.</p>
-<p>df<span class="math inline">\(death2 &lt;- ifelse(df\)</span>DEATHS &gt; 0, “has_death”, “no_death”)</p>
-<p>df$death2</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>death2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>DEATHS <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"has_death"</span>, <span class="st">"no_death"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>death2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+has_death  no_death 
+    49926      1152 </code></pre>
+</div>
+</div>
 <ol start="12" type="1">
 <li><p>Find the first quartile (Q1), second quartile (Q2) and and third quartile (Q3) of the variable <code>death</code>. (Hint: Use the <code>summary</code> function)</p>
-<pre><code>summary(df$DEATHS)</code></pre></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df<span class="sc">$</span>DEATHS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      0     838    4064   10134   12674   95407 </code></pre>
+</div>
+</div>
+<pre><code></code></pre></li>
 <li><p>Create the categorical variable <code>death3</code> variable taking the values as follows</p></li>
 </ol>
 <ul>
 <li><p><code>low_death</code> if the number of deaths smaller than the 25 percentile (Q1)</p></li>
 <li><p><code>mid_death</code> if the number of deaths from Q1 to Q3</p></li>
 <li><p><code>high_death</code> if the number of deaths greater than Q3</p>
-<p>Q1 &lt;- quantile(df<span class="math inline">\(DEATHS, 0.25)
-Q3 &lt;- quantile(df\)</span>DEATHS, 0.75)</p>
-<p>df$death3 &lt;- ifelse(df$DEATHS &lt; Q1, “low_death”, ifelse(df$DEATHS &lt;= Q3, “mid_death”, “high_death”))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(df<span class="sc">$</span>DEATHS, <span class="fl">0.25</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>Q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(df<span class="sc">$</span>DEATHS, <span class="fl">0.75</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>death3 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>DEATHS <span class="sc">&lt;</span> Q1, <span class="st">"low_death"</span>, <span class="fu">ifelse</span>(df<span class="sc">$</span>DEATHS <span class="sc">&lt;=</span> Q3, <span class="st">"mid_death"</span>, <span class="st">"high_death"</span>))</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>death3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+high_death  low_death  mid_death 
+     12770      12762      25546 </code></pre>
+</div>
+</div></li>
 </ul>
-<p>df$death3</p>
 <ol start="14" type="1">
 <li><p>Find the average cases in Rhode Island in 2021</p>
-<p>mean(df<span class="math inline">\(CASES[df\)</span>STATE == “Rhode Island” &amp; format(df$DATE, “%Y”) == “2021”]) (the dollar signs keep making italics)</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>CASES[df<span class="sc">$</span>STATE <span class="sc">==</span> <span class="st">"Rhode Island"</span> <span class="sc">&amp;</span> <span class="fu">format</span>(df<span class="sc">$</span>DATE, <span class="st">"%Y"</span>) <span class="sc">==</span> <span class="st">"2021"</span>]) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 154438.5</code></pre>
+</div>
+</div></li>
 <li><p>Find the median cases by weekdays in Rhode Island in 2021</p>
-<p>RI_2021 &lt;- df[df<span class="math inline">\(STATE == "Rhode Island" &amp;
-              format(df\)</span>DATE, “%Y”) == “2021”, ]</p>
-<p>by(RI_2021<span class="math inline">\(CASES, RI_2021\)</span>weekdays, median)</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>RI_2021 <span class="ot">&lt;-</span> df[df<span class="sc">$</span>STATE <span class="sc">==</span> <span class="st">"Rhode Island"</span> <span class="sc">&amp;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">format</span>(df<span class="sc">$</span>DATE, <span class="st">"%Y"</span>) <span class="sc">==</span> <span class="st">"2021"</span>, ]</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(RI_2021<span class="sc">$</span>CASES, RI_2021<span class="sc">$</span>weekdays, median)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>RI_2021$weekdays: Friday
+[1] 152643
+------------------------------------------------------------ 
+RI_2021$weekdays: Monday
+[1] 152605
+------------------------------------------------------------ 
+RI_2021$weekdays: Saturday
+[1] 152578.5
+------------------------------------------------------------ 
+RI_2021$weekdays: Sunday
+[1] 152578.5
+------------------------------------------------------------ 
+RI_2021$weekdays: Thursday
+[1] 152683
+------------------------------------------------------------ 
+RI_2021$weekdays: Tuesday
+[1] 152643.5
+------------------------------------------------------------ 
+RI_2021$weekdays: Wednesday
+[1] 152675.5</code></pre>
+</div>
+</div></li>
 <li><p>Compare the median cases in Rhode Island in June, July, August and September in 2021.</p>
-<p>RI_2021 &lt;- df[df<span class="math inline">\(STATE == "Rhode Island" &amp;
-              format(df\)</span>DATE, “%Y”) == “2021”, ]</p>
-<p>RI_2021</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>RI_2021 <span class="ot">&lt;-</span> df[df<span class="sc">$</span>STATE <span class="sc">==</span> <span class="st">"Rhode Island"</span> <span class="sc">&amp;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">format</span>(df<span class="sc">$</span>DATE, <span class="st">"%Y"</span>) <span class="sc">==</span> <span class="st">"2021"</span>, ]</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RI_2021)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      DATE               STATE                FIPS        CASES       
+ Min.   :2021-01-01   Length:365         Min.   :44   Min.   : 87949  
+ 1st Qu.:2021-04-02   Class :character   1st Qu.:44   1st Qu.:138255  
+ Median :2021-07-02   Mode  :character   Median :44   Median :152643  
+ Mean   :2021-07-02                      Mean   :44   Mean   :154439  
+ 3rd Qu.:2021-10-01                      3rd Qu.:44   3rd Qu.:172719  
+ Max.   :2021-12-31                      Max.   :44   Max.   :231096  
+     DEATHS       weekdays            death2             death3         
+ Min.   :1777   Length:365         Length:365         Length:365        
+ 1st Qu.:2629   Class :character   Class :character   Class :character  
+ Median :2730   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :2669                                                           
+ 3rd Qu.:2838                                                           
+ Max.   :3066                                                           </code></pre>
+</div>
+</div></li>
 <li><p>Find your own dataset, import it and implement the following functions on the data</p></li>
 </ol>
 <ul>
@@ -222,15 +384,44 @@ Q3 &lt;- quantile(df\)</span>DEATHS, 0.75)</p>
 </ol>
 <ul>
 <li><p>Create a categorical variable from a continuous variable</p>
-<pre><code>my_data$age_group &lt;- case_when( +     my_data$age &lt; 30 ~ "Under 30", +     my_data$age &lt; 50 ~ "30-49", +     my_data$age &gt;= 50 ~ "50+" + ) table(my_data$age_group)</code></pre></li>
+<pre><code></code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.4.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'adult_census_missing.csv'</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>age_group <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  my_data<span class="sc">$</span>age <span class="sc">&lt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"Under 30"</span>,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  my_data<span class="sc">$</span>age <span class="sc">&lt;</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"30-49"</span>,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  my_data<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"50+"</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(my_data<span class="sc">$</span>age_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   30-49      50+ Under 30 
+   15775     7055     9701 </code></pre>
+</div>
+</div></li>
 <li><p>From one categorical variable, create a new categorical variable with fewer categories</p>
-<p>my_data<span class="math inline">\(education_group &lt;- case_when(
-  my_data\)</span>education == “Bachelors” | my_data<span class="math inline">\(education == "Masters" |
-  my_data\)</span>education == “Doctorate” ~ “College”,</p>
-<p>my_data<span class="math inline">\(education == "HS-grad" |
-  my_data\)</span>education == “Some-college” ~ “High School/Some College”,</p>
-<p>TRUE ~ “Other” )</p>
-<p>table(my_data$education_group)</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>education_group <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  my_data<span class="sc">$</span>education <span class="sc">==</span> <span class="st">"Bachelors"</span> <span class="sc">|</span> my_data<span class="sc">$</span>education <span class="sc">==</span> <span class="st">"Masters"</span> <span class="sc">|</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  my_data<span class="sc">$</span>education <span class="sc">==</span> <span class="st">"Doctorate"</span> <span class="sc">~</span> <span class="st">"College"</span>,</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>education <span class="sc">==</span> <span class="st">"HS-grad"</span> <span class="sc">|</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  my_data<span class="sc">$</span>education <span class="sc">==</span> <span class="st">"Some-college"</span> <span class="sc">~</span> <span class="st">"High School/Some College"</span>,</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span> )</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(my_data<span class="sc">$</span>education_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                 College High School/Some College                    Other 
+                    7474                    17748                     7339 </code></pre>
+</div>
+</div></li>
 </ul>
 <p>If you do not have a data, you can use <a href="https://www.kaggle.com/competitions/titanic/overview">the titanic dataset</a>, which can be downloaded at <a href="https://bryantstats.github.io/math421/data/titanic.csv">this link</a></p>
 </section>

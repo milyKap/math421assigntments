@@ -32,9 +32,12 @@ $$
 
 This is my answer:
 
-```         
+```{r}
 x = seq(1, 100, 3)
 sum(x)
+```
+
+```         
 ```
 
 2.  Calculate:
@@ -45,9 +48,12 @@ $$
 
 This is my answer:
 
-```         
+```{r}
 y = c(1:100)
 sum(y^100)
+```
+
+```         
 ```
 
 3.  Calculate:
@@ -59,6 +65,9 @@ $$
 This is my answer:
 
 ```         
+```
+
+```{r}
 x = c(1:100)
 y = c(2:101)
 z = x * y
@@ -74,6 +83,9 @@ $$
 This is my answer:
 
 ```         
+```
+
+```{r}
 x = c(1:100)
 y = c(2:101)
 z = c(3:102)
@@ -90,6 +102,9 @@ $$
 This is my answer:
 
 ```         
+```
+
+```{r}
 x = seq(1, 100, 2)
 sum(x^x)
 ```
