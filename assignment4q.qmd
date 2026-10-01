@@ -18,7 +18,6 @@ editor: visual
 
 ***Submission***: Submit the link on Github of the assignment to Canvas.
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE)
 library(dplyr)
@@ -33,6 +32,7 @@ An R package can be installed by `install.packages` function. Install `tidyverse
 ```{r, eval=FALSE}
 install.packages('dplyr')
 install.packages('tidyverse')
+library(tidyverse)
 ```
 
 ------------------------------------------------------------------------
@@ -40,6 +40,10 @@ install.packages('tidyverse')
 #### 2. Read the data using `read_csv`
 
 Use `read_csv` function to import the US Covid 19 data at [link](https://bryantstats.github.io/math421/data/all-states-history.csv). Don't forget to import `tidyverse` (library(tidyverse)) so that you can use read_csv.
+
+```{r}
+df <- read_csv("all-states-history.csv")
+```
 
 ------------------------------------------------------------------------
 
@@ -84,7 +88,9 @@ df$daily_death <- case_when(
 
 Use the select function to deselect the column `totalTestsViral` from the data.
 
-df \<- select(df, -totalTestsViral)
+```{r}
+df <- select(df, -totalTestsViral)
+```
 
 ------------------------------------------------------------------------
 
@@ -113,23 +119,30 @@ x %>% sqrt %>% sum %>% log
 
 This combo is used when you want to apply a function/calculation to different groups of the data. For example, to calculate the average number of cases (`positiveIncrease`) by `dataQualityGrade`, we use:
 
-###```{r, eval=FALSE}
-#df %>% 
-#  group_by(weekday) %>% 
-# summarise(mean(positiveIncrease))
+`{r, eval=FALSE} #df %>%  #  group_by(weekday) %>%  # summarise(mean(positiveIncrease))`
+
+```{}
 ```
 
 -   Calculate the median number of cases (`positiveIncrease`) by `month`
 
-#df %\>% group_by(month) %\>% summarise(median_cases = median(positiveIncrease))
+```{r}
+df %>%
+  group_by(df$month) %>%
+  summarise(median_cases = median(positiveIncrease))
+```
 
 -   Calculate the average number of cases (`positiveIncrease`) by `month2`
 
-   df %\>% group_by(month2) %\>% summarise(mean_cases = mean(positiveIncrease))
+```{r}
+df %>% group_by(month2) %>% summarise(mean_cases = mean(positiveIncrease))
+```
 
 -   Calculate the median number of cases (`positiveIncrease`) by `weekend`
 
-    df %\>% group_by(weekend) %\>% summarise(median_cases = median(positiveIncrease))
+    ```{r}
+    df %>% group_by(weekend) %>% summarise(median_cases = median(positiveIncrease))
+    ```
 
 ------------------------------------------------------------------------
 
