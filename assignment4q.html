@@ -119,6 +119,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="read-the-data-using-read_csv" class="level4">
 <h4 class="anchored" data-anchor-id="read-the-data-using-read_csv">2. Read the data using <code>read_csv</code></h4>
 <p>Use <code>read_csv</code> function to import the US Covid 19 data at <a href="https://bryantstats.github.io/math421/data/all-states-history.csv">link</a>. Don’t forget to import <code>tidyverse</code> (library(tidyverse)) so that you can use read_csv.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tibble' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'forcats' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.4.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"C:/Users/student/OneDrive - Bryant University/Documents/GitHub/math421assigntments/all-states-history.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+</div>
 <hr>
 </section>
 <section id="fix-the-date-and-create-some-new-variables" class="level4">
@@ -128,14 +165,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Use the below codes to create <code>month</code>, <code>weekday</code> and <code>monthday</code> variables</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>month <span class="ot">=</span> <span class="fu">month</span>(df<span class="sc">$</span>date)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># day of the week</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>weekday <span class="ot">=</span> <span class="fu">wday</span>(df<span class="sc">$</span>date)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># day of the month</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>monthday <span class="ot">&lt;-</span> <span class="fu">mday</span>(df<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>month <span class="ot">=</span> <span class="fu">month</span>(df<span class="sc">$</span>date)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># day of the week</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>weekday <span class="ot">=</span> <span class="fu">wday</span>(df<span class="sc">$</span>date)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># day of the month</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>monthday <span class="ot">&lt;-</span> <span class="fu">mday</span>(df<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 </section>
@@ -143,46 +180,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="create-new-variables-with-case_when.">4. Create new variables with <code>case_when</code>.</h4>
 <p>The function <code>case_when</code> is a good option to create a new variable from existing variable. For example, this below codes create a new variable, <code>daily_death</code>, from <code>deathIncrease</code> variable. <code>deathIncrease</code> is the number of daily new death by Covid19. The new variable <code>daily_death</code> takes three values: low (if <code>deathIncrease</code> less than 3), medium (<code>deathIncrease</code> from 3 to 14), and high (<code>deathIncrease</code> more than 14). Please notice that this can also be done in a different way as shown in Assignment 3.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>daily_death <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>deathIncrease <span class="sc">&lt;</span><span class="dv">3</span> <span class="sc">~</span> <span class="st">'low'</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>deathIncrease <span class="sc">&lt;=</span><span class="dv">14</span> <span class="sc">~</span> <span class="st">'medium'</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">'high'</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>daily_death <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>deathIncrease <span class="sc">&lt;</span><span class="dv">3</span> <span class="sc">~</span> <span class="st">'low'</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>deathIncrease <span class="sc">&lt;=</span><span class="dv">14</span> <span class="sc">~</span> <span class="st">'medium'</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">'high'</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li><p>Create variable <code>month2</code> that takes three values: early_month (day of the month from 1-10), mid_month (day of the month from 11-20), and end_month (day of the month &gt; 20).</p></li>
-<li><p>Create variable <code>weekend</code> that takes two values: 1 if it’s Saturday or Sunday and 0 otherwise.</p></li>
+<li><p>Create variable <code>month2</code> that takes three values: early_month (day of the month from 1-10), mid_month (day of the month from 11-20), and end_month (day of the month &gt; 20).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>month2 <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(<span class="fu">format</span>(df<span class="sc">$</span>date, <span class="st">"%d"</span>)) <span class="sc">&lt;=</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"early_month"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(<span class="fu">format</span>(df<span class="sc">$</span>date, <span class="st">"%d"</span>)) <span class="sc">&lt;=</span> <span class="dv">20</span> <span class="sc">~</span> <span class="st">"mid_month"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"end_month"</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Create variable <code>weekend</code> that takes two values: 1 if it’s Saturday or Sunday and 0 otherwise.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>weekend <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">weekdays</span>(df<span class="sc">$</span>date) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Saturday"</span>, <span class="st">"Sunday"</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
 </ul>
 <hr>
 </section>
 <section id="select-function" class="level4">
 <h4 class="anchored" data-anchor-id="select-function">5. Select function</h4>
 <p>Use the select function to deselect the column <code>totalTestsViral</code> from the data.</p>
-<p>df &lt;- select(df, -totalTestsViral)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, <span class="sc">-</span>totalTestsViral)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <hr>
 </section>
 <section id="pipe-operator" class="level4">
 <h4 class="anchored" data-anchor-id="pipe-operator">6. Pipe Operator ( %&gt;% )</h4>
 <p>Pipe operator offers another way to write R codes. Many times, it makes the codes more readable. Pipe works very well with all the <code>tidyverse</code> packages. Refer to <a href="https://bryantstats.github.io/math421/slides/4_dplyr.html#15">these slides</a> (slide 15, 16, 17 and 18) to rewrite the below codes using pipe operator</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># square root of x</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> sqrt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># square root of x</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> sqrt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
  [9] 3.000000 3.162278</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> sqrt <span class="sc">%&gt;%</span> sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sum of the square root of x</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> sqrt <span class="sc">%&gt;%</span> sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 22.46828</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> sqrt <span class="sc">%&gt;%</span> sum <span class="sc">%&gt;%</span> log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#log of the sums of the square roots of x</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> sqrt <span class="sc">%&gt;%</span> sum <span class="sc">%&gt;%</span> log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.112104</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># log base 2 of 16</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span> <span class="sc">%&gt;%</span> <span class="fu">log</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># log base 2 of 16</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span> <span class="sc">%&gt;%</span> <span class="fu">log</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
@@ -192,18 +246,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="combo-1-group_by-summarise" class="level4">
 <h4 class="anchored" data-anchor-id="combo-1-group_by-summarise">7. Combo 1: group_by + summarise</h4>
 <p>This combo is used when you want to apply a function/calculation to different groups of the data. For example, to calculate the average number of cases (<code>positiveIncrease</code>) by <code>dataQualityGrade</code>, we use:</p>
-<p>###<code>{r, eval=FALSE} #df %&gt;%  #  group_by(weekday) %&gt;%  # summarise(mean(positiveIncrease))</code></p>
+<p><code>{r, eval=FALSE} #df %&gt;%  #  group_by(weekday) %&gt;%  # summarise(mean(positiveIncrease))</code></p>
+<pre><code></code></pre>
 <ul>
 <li>Calculate the median number of cases (<code>positiveIncrease</code>) by <code>month</code></li>
 </ul>
-<p>#df %&gt;% group_by(month) %&gt;% summarise(median_cases = median(positiveIncrease))</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df<span class="sc">$</span>month) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median_cases =</span> <span class="fu">median</span>(positiveIncrease))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+   `df$month` median_cases
+        &lt;dbl&gt;        &lt;dbl&gt;
+ 1          1        1517 
+ 2          2         520 
+ 3          3          19 
+ 4          4         156 
+ 5          5         206 
+ 6          6         224.
+ 7          7         444 
+ 8          8         415 
+ 9          9         456.
+10         10         771 
+11         11        1596.
+12         12        2080.</code></pre>
+</div>
+</div>
 <ul>
 <li>Calculate the average number of cases (<code>positiveIncrease</code>) by <code>month2</code></li>
 </ul>
-<p>df %&gt;% group_by(month2) %&gt;% summarise(mean_cases = mean(positiveIncrease))</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month2) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_cases =</span> <span class="fu">mean</span>(positiveIncrease))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  month2      mean_cases
+  &lt;chr&gt;            &lt;dbl&gt;
+1 early_month      1416.
+2 end_month        1342.
+3 mid_month        1395.</code></pre>
+</div>
+</div>
 <ul>
 <li><p>Calculate the median number of cases (<code>positiveIncrease</code>) by <code>weekend</code></p>
-<p>df %&gt;% group_by(weekend) %&gt;% summarise(median_cases = median(positiveIncrease))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(df<span class="sc">$</span>weekend) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median_cases =</span> <span class="fu">median</span>(positiveIncrease))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  `df$weekend` median_cases
+         &lt;dbl&gt;        &lt;dbl&gt;
+1            0          450
+2            1          399</code></pre>
+</div>
+</div></li>
 </ul>
 <hr>
 </section>
@@ -211,57 +310,276 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="combo-2-filter-group_by-summarise">8. Combo 2: filter + group_by + summarise</h4>
 <p>An example: to calculate the average number of cases (<code>positiveIncrease</code>) in January and February separately, we use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month<span class="sc">==</span><span class="dv">1</span><span class="sc">|</span>month<span class="sc">==</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">positve_increase =</span> <span class="fu">mean</span>(positiveIncrease))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">1</span><span class="sc">|</span>month <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">positve_increase =</span> <span class="fu">mean</span>(positiveIncrease))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p>Calculate the median number of cases (<code>positiveIncrease</code>) on the weekend by <code>month</code> in October and November 2020.</p>
-<p>df %&gt;% filter(weekend == “weekend” &amp; month %in% c(10, 11) &amp; year == 2020) %&gt;% group_by(month) %&gt;% summarise(median_cases = median(positiveIncrease))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    weekend <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format</span>(date, <span class="st">"%Y"</span>) <span class="sc">==</span> <span class="st">"2020"</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_cases =</span> <span class="fu">median</span>(positiveIncrease)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  month median_cases
+  &lt;dbl&gt;        &lt;dbl&gt;
+1    10         758.
+2    11        1532 </code></pre>
+</div>
+</div></li>
 <li><p>Calculate the average number of death at different periods of a month (<code>month2</code> variable) in Fall 2020</p>
-<p>df %&gt;% filter(month %in% c(9, 10, 11) &amp; year == 2020) %&gt;% group_by(month2) %&gt;% summarise(mean_deaths = mean(death))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>),</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format</span>(date, <span class="st">"%Y"</span>) <span class="sc">==</span> <span class="st">"2020"</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month2) <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_deaths =</span> <span class="fu">mean</span>(death, <span class="at">is.na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  month2      mean_deaths
+  &lt;chr&gt;             &lt;dbl&gt;
+1 early_month       3638.
+2 end_month         3973.
+3 mid_month         3794.</code></pre>
+</div>
+</div></li>
 <li><p>Compare the average number of hospitalizations between weekdays and weekends in Summer 2020</p>
-<p>df %&gt;% filter(month %in% c(6, 7, 8) &amp; year == 2020) %&gt;% group_by(weekend) %&gt;% summarise(mean_hospitalizations = mean(hospitalizedIncrease))</p></li>
-<li><p>Redo Questions 14 and 15 in <a href="assignment3q.html">Assignment 3</a> using the combos. Notice: you also need to use the data used in Assignment 3.</p>
-<p>14: df %&gt;% filter(STATE == “Rhode Island” &amp; format(DATE, “%Y”) == “2021”) %&gt;% summarise(mean_cases = mean(CASES))</p>
-<p>15: df %&gt;% filter(STATE == “Rhode Island” &amp; format(DATE, “%Y”) == “2021”) %&gt;% group_by(weekdays) %&gt;% summarise(median_cases = median(CASES))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format</span>(date, <span class="st">"%Y"</span>) <span class="sc">==</span> <span class="st">"2020"</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(weekend) <span class="sc">%&gt;%</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_hospitalized =</span> <span class="fu">mean</span>(hospitalizedIncrease, <span class="at">is.na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  weekend mean_hospitalized
+    &lt;dbl&gt;             &lt;dbl&gt;
+1       0              33.5
+2       1              21.9</code></pre>
+</div>
+</div></li>
+<li><p>Redo Questions 14 and 15 in <a href="assignment3q.html">Assignment 3</a> using the combos. Notice: you also need to use the data used in Assignment 3.</p></li>
 </ul>
 <hr>
 </section>
 <section id="combo-3-filter-group_by-summarise-arrange" class="level4">
 <h4 class="anchored" data-anchor-id="combo-3-filter-group_by-summarise-arrange">9. Combo 3: filter + group_by + summarise + arrange</h4>
 <p>Use the arrange function to find a month that has the highest number of deaths on the weekend.</p>
-<p>df %&gt;% filter(weekday %in% c(“Saturday”, “Sunday”)) %&gt;% group_by(month) %&gt;% summarise(mean_deaths = mean(death)) %&gt;% arrange(desc(mean_deaths))</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(weekend <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_deaths =</span> <span class="fu">mean</span>(death, <span class="at">is.na =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_deaths))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+   month mean_deaths
+   &lt;dbl&gt;       &lt;dbl&gt;
+ 1    12       5342.
+ 2    11       4308.
+ 3    10       3763.
+ 4     9       3373.
+ 5     8       2881.
+ 6     7       2329.
+ 7     6       2018.
+ 8     5       1500.
+ 9     1         NA 
+10     2         NA 
+11     3         NA 
+12     4         NA </code></pre>
+</div>
+</div>
 <hr>
 </section>
 <section id="use-your-own-dataset-and-implement-the-follows-functions-or-combos." class="level4">
 <h4 class="anchored" data-anchor-id="use-your-own-dataset-and-implement-the-follows-functions-or-combos.">10. Use your own dataset and implement the follows functions or combos.</h4>
 <p>You can use the <a href="https://bryantstats.github.io/math421/data/adult_census.csv">Adult Census Income</a> or <a href="https://bryantstats.github.io/math421/data/titanic.csv">Titanic data</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"C:/Users/student/OneDrive - Bryant University/Documents/GitHub/math421assigntments/titanic.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>using the titanic data</p>
 <ul>
 <li><p>select</p>
-<p>titanic %&gt;% select(Name, Sex, Age, Survived)</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">select</span>(Name, Sex, Age, Survived)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 891 × 4
+   Name                                                Sex      Age Survived
+   &lt;chr&gt;                                               &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Braund, Mr. Owen Harris                             male      22        0
+ 2 Cumings, Mrs. John Bradley (Florence Briggs Thayer) female    38        1
+ 3 Heikkinen, Miss. Laina                              female    26        1
+ 4 Futrelle, Mrs. Jacques Heath (Lily May Peel)        female    35        1
+ 5 Allen, Mr. William Henry                            male      35        0
+ 6 Moran, Mr. James                                    male      NA        0
+ 7 McCarthy, Mr. Timothy J                             male      54        0
+ 8 Palsson, Master. Gosta Leonard                      male       2        0
+ 9 Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)   female    27        1
+10 Nasser, Mrs. Nicholas (Adele Achem)                 female    14        1
+# ℹ 881 more rows</code></pre>
+</div>
+</div></li>
 <li><p>filter</p>
-<p>titanic %&gt;% filter(Survived == 1)</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Survived <span class="sc">==</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 342 × 12
+   PassengerId Survived Pclass Name   Sex     Age SibSp Parch Ticket  Fare Cabin
+         &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+ 1           2        1      1 Cumin… fema…    38     1     0 PC 17… 71.3  C85  
+ 2           3        1      3 Heikk… fema…    26     0     0 STON/…  7.92 &lt;NA&gt; 
+ 3           4        1      1 Futre… fema…    35     1     0 113803 53.1  C123 
+ 4           9        1      3 Johns… fema…    27     0     2 347742 11.1  &lt;NA&gt; 
+ 5          10        1      2 Nasse… fema…    14     1     0 237736 30.1  &lt;NA&gt; 
+ 6          11        1      3 Sands… fema…     4     1     1 PP 95… 16.7  G6   
+ 7          12        1      1 Bonne… fema…    58     0     0 113783 26.6  C103 
+ 8          16        1      2 Hewle… fema…    55     0     0 248706 16    &lt;NA&gt; 
+ 9          18        1      2 Willi… male     NA     0     0 244373 13    &lt;NA&gt; 
+10          20        1      3 Masse… fema…    NA     0     0 2649    7.22 &lt;NA&gt; 
+# ℹ 332 more rows
+# ℹ 1 more variable: Embarked &lt;chr&gt;</code></pre>
+</div>
+</div></li>
 <li><p>mutate</p>
-<p>titanic %&gt;% mutate(Age_group = ifelse(Age &lt; 18, “Child”, “Adult”))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Age_group =</span> <span class="fu">ifelse</span>(Age <span class="sc">&lt;</span> <span class="dv">18</span>, <span class="st">"Child"</span>, <span class="st">"Adult"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 891 × 13
+   PassengerId Survived Pclass Name   Sex     Age SibSp Parch Ticket  Fare Cabin
+         &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+ 1           1        0      3 Braun… male     22     1     0 A/5 2…  7.25 &lt;NA&gt; 
+ 2           2        1      1 Cumin… fema…    38     1     0 PC 17… 71.3  C85  
+ 3           3        1      3 Heikk… fema…    26     0     0 STON/…  7.92 &lt;NA&gt; 
+ 4           4        1      1 Futre… fema…    35     1     0 113803 53.1  C123 
+ 5           5        0      3 Allen… male     35     0     0 373450  8.05 &lt;NA&gt; 
+ 6           6        0      3 Moran… male     NA     0     0 330877  8.46 &lt;NA&gt; 
+ 7           7        0      1 McCar… male     54     0     0 17463  51.9  E46  
+ 8           8        0      3 Palss… male      2     3     1 349909 21.1  &lt;NA&gt; 
+ 9           9        1      3 Johns… fema…    27     0     2 347742 11.1  &lt;NA&gt; 
+10          10        1      2 Nasse… fema…    14     1     0 237736 30.1  &lt;NA&gt; 
+# ℹ 881 more rows
+# ℹ 2 more variables: Embarked &lt;chr&gt;, Age_group &lt;chr&gt;</code></pre>
+</div>
+</div></li>
 <li><p>summarise</p>
-<p>titanic %&gt;% summarise(Mean_age = mean(Age, na.rm = TRUE))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Mean_age =</span> <span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  Mean_age
+     &lt;dbl&gt;
+1     29.7</code></pre>
+</div>
+</div></li>
 <li><p>arrange</p>
-<p>titanic %&gt;% arrange(Age)</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(Sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 891 × 12
+   PassengerId Survived Pclass Name   Sex     Age SibSp Parch Ticket  Fare Cabin
+         &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;
+ 1           2        1      1 Cumin… fema…    38     1     0 PC 17… 71.3  C85  
+ 2           3        1      3 Heikk… fema…    26     0     0 STON/…  7.92 &lt;NA&gt; 
+ 3           4        1      1 Futre… fema…    35     1     0 113803 53.1  C123 
+ 4           9        1      3 Johns… fema…    27     0     2 347742 11.1  &lt;NA&gt; 
+ 5          10        1      2 Nasse… fema…    14     1     0 237736 30.1  &lt;NA&gt; 
+ 6          11        1      3 Sands… fema…     4     1     1 PP 95… 16.7  G6   
+ 7          12        1      1 Bonne… fema…    58     0     0 113783 26.6  C103 
+ 8          15        0      3 Vestr… fema…    14     0     0 350406  7.85 &lt;NA&gt; 
+ 9          16        1      2 Hewle… fema…    55     0     0 248706 16    &lt;NA&gt; 
+10          19        0      3 Vande… fema…    31     1     0 345763 18    &lt;NA&gt; 
+# ℹ 881 more rows
+# ℹ 1 more variable: Embarked &lt;chr&gt;</code></pre>
+</div>
+</div></li>
 <li><p>count</p>
-<p>titanic %&gt;% count(Sex)</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">count</span>(Sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  Sex        n
+  &lt;chr&gt;  &lt;int&gt;
+1 female   314
+2 male     577</code></pre>
+</div>
+</div></li>
 <li><p>count + arrange</p>
-<p>titanic %&gt;% count(Pclass) %&gt;% arrange(desc(n))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">count</span>(Pclass) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Pclass     n
+   &lt;dbl&gt; &lt;int&gt;
+1      3   491
+2      1   216
+3      2   184</code></pre>
+</div>
+</div></li>
 <li><p>filter + count + arrange</p>
-<p>titanic %&gt;% filter(Survived == 1) %&gt;% count(Pclass) %&gt;% arrange(desc(n))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Survived <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">count</span>(Pclass) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Pclass     n
+   &lt;dbl&gt; &lt;int&gt;
+1      1   136
+2      3   119
+3      2    87</code></pre>
+</div>
+</div></li>
 <li><p>group_by + summarise</p>
-<p>titanic %&gt;% group_by(Pclass) %&gt;% summarise(Mean_age = mean(Age, na.rm = TRUE))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Pclass) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Mean_age =</span> <span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Pclass Mean_age
+   &lt;dbl&gt;    &lt;dbl&gt;
+1      1     38.2
+2      2     29.9
+3      3     25.1</code></pre>
+</div>
+</div></li>
 <li><p>filter + group_by + summarise</p>
-<p>titanic %&gt;% filter(Survived == 1) %&gt;% group_by(Pclass) %&gt;% summarise(Mean_age = mean(Age, na.rm = TRUE))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Survived <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Pclass) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Mean_age =</span> <span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Pclass Mean_age
+   &lt;dbl&gt;    &lt;dbl&gt;
+1      1     35.4
+2      2     25.9
+3      3     20.6</code></pre>
+</div>
+</div></li>
 <li><p>filter + group_by + summarise + arrange</p>
-<p>titanic %&gt;% filter(Survived == 1) %&gt;% group_by(Pclass) %&gt;% summarise(Mean_age = mean(Age, na.rm = TRUE))</p></li>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Survived <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Pclass) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">Mean_age =</span> <span class="fu">mean</span>(Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  Pclass Mean_age
+   &lt;dbl&gt;    &lt;dbl&gt;
+1      1     35.4
+2      2     25.9
+3      3     20.6</code></pre>
+</div>
+</div></li>
 </ul>
 </section>
 
