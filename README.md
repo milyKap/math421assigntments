@@ -9,3 +9,5 @@
 [Assignment 4](assignment4q.html)
 
 [Assignment 5] ()
+
+[Assignment 6](assignment6.html)
