@@ -307,6 +307,8 @@ using the titanic data
 
     ```{r}
     titanic %>% filter(Survived == 1) %>% group_by(Pclass) %>% summarise(Mean_age = mean(Age, na.rm = TRUE))
+
+    titanic %>% filter(Sex == 'female', Pclass == 1) %>% summarise(mean_fare = mean(Fare, na.rm = TRUE))
     ```
 
 -   filter + group_by + summarise + arrange
