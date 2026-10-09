@@ -34,6 +34,7 @@ Choose a dataset and produce the following types of plots and comment on each pl
 library(tidyverse)
 library(ggplot2)
 titanic <- read_csv("C:/Users/student/OneDrive - Bryant University/Documents/GitHub/math421assigntments/titanic.csv")
+titanic$Pclass <- as.factor(Pclass)
 ```
 
 1.  For one continuous variable:
@@ -108,7 +109,7 @@ titanic <- read_csv("C:/Users/student/OneDrive - Bryant University/Documents/Git
 
     ```{r}
     titanic %>% ggplot()+
-      geom_boxplot(mapping = aes(x = Age, color = Sex))
+      geom_boxplot(mapping = aes(x = Age, color = Pclass))
     ```
 
 ------------------------------------------------------------------------
@@ -120,12 +121,6 @@ titanic <- read_csv("C:/Users/student/OneDrive - Bryant University/Documents/Git
       geom_bar(mapping = aes(x = Survived, fill = Sex), position = "fill")
     
     
-    
-    
-    titanic %>% 
-      filter() %>% 
-      ggplot()+
-      geom_bar(mapping = aes(x = Survived, fill = Sex))
     ```
 
 ------------------------------------------------------------------------
