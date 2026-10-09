@@ -118,6 +118,14 @@ titanic <- read_csv("C:/Users/student/OneDrive - Bryant University/Documents/Git
     ```{r}
     titanic %>% ggplot()+
       geom_bar(mapping = aes(x = Survived, fill = Sex), position = "fill")
+    
+    
+    
+    
+    titanic %>% 
+      filter() %>% 
+      ggplot()+
+      geom_bar(mapping = aes(x = Survived, fill = Sex))
     ```
 
 ------------------------------------------------------------------------
