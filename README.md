@@ -11,3 +11,5 @@
 [Assignment 5] ()
 
 [Assignment 6](assignment6.html)
+
+[Assignment 7](assignment7.html)
