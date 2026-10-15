@@ -38,18 +38,17 @@ This assignment works with the Adult Census Data that can be downloaded at [this
 
     ```{r}
     library(tidyverse)
-    adult <- read_csv("adult_census_missing.csv")
+    adult <- read_csv("C:/Users/student/OneDrive - Bryant University/Documents/GitHub/math421assigntments/adult_census_missing.csv")
     sum(is.na(adult))
     ```
 
 2.  Using function `aggr` the VIM package to plot the number of NAs for each column.
 
     ```{r}
-    #library(VIM)
+    library(VIM)
+    library(dplyr)
 
-    #aggr(adult,
-         #numbers = TRUE,
-         #prop = TRUE)
+    aggr(adult)
     ```
 
 3.  Find other forms of missing values. Hint: You can use the `table` function to check if there are suspicious categories (Unknown, for example) in a variable. What all other forms of missing values shown in the data.
@@ -63,75 +62,83 @@ This assignment works with the Adult Census Data that can be downloaded at [this
 4.  Replace all the forms of missing values found to NA
 
     ```{r}
-    adult[adult == "?"] <- NA
-    adult[adult == "Unknown"] <- NA
-
-    colSums(is.na(adult))
+    adult <- replace(adult, adult == "Not Known" |
+                       adult == "Unknown" |
+                       adult == "?", NA)
     ```
 
 5.  Replot the number of NAs for each column.
 
     ```{r}
-    #aggr(adult)
+    aggr(adult)
     ```
 
 6.  Approach 1 to handle NAs: remove all rows that have any NAs. Save the dataset after removing as a different data. The original data is unchanged (still have NAs). How many rows left after removing?
 
     ```{r}
-    adult_no_na <- na.omit(adult)
+    adult1 <- drop_na(adult)
 
-    nrow(adult_no_na)
+    nrow(adult1)
     ```
 
 7.  Approach 2 to handle NAs: Fill all the NAs with the previous or next value. (Hint: Using `fill` function). Save the dataset after filling as a different data. The original data is unchanged (still have NAs).
 
     ```{r}
-    library(dplyr)
+    adult2 <- adult %>%
+      fill(everything(), .direction = "updown")
 
-    adult_filled <- adult %>%
-      fill(everything(), .direction = "downup")
-
-    colSums(is.na(adult_filled))
+    colSums(is.na(adult2))
     ```
 
 8.  Approach 3 to handle NAs: For numeric variable, replace the NAs by the median. For categorical variables, replace the NAs to the majority.
 
     ```{r}
-    adult_median <- adult
+    adult3 <- adult
 
-    adult_median$age[is.na(adult_median$age)] <- median(adult_median$age, na.rm = TRUE)
+    mean_age <- mean(adult3$age, na.rm=TRUE)
+    adult3$age <- replace_na(adult3$age, mean_age)
 
-    adult_median$fnlwgt[is.na(adult_median$fnlwgt)] <- median(adult_median$fnlwgt, na.rm = TRUE)
+    majority_workclass <- names(which.max(table(adult3$workclass)))
+    adult3$workclass <- replace_na(adult3$workclass, majority_workclass)
 
-    adult_median$education.num[is.na(adult_median$education.num)] <- median(adult_median$education.num, na.rm = TRUE)
+    mean_fnlwgt <- mean(adult3$fnlwgt, na.rm=TRUE)
+    adult3$fnlwgt <- replace_na(adult3$fnlwgt, mean_fnlwgt)
 
-    adult_median$capital.gain[is.na(adult_median$capital.gain)] <- median(adult_median$capital.gain, na.rm = TRUE)
+    majority_education <- names(which.max(table(adult3$education)))
+    adult3$education <- replace_na(adult3$education, majority_education)
 
-    adult_median$capital.loss[is.na(adult_median$capital.loss)] <- median(adult_median$capital.loss, na.rm = TRUE)
+    mean_education.num <- mean(adult3$education.num, na.rm=TRUE)
+    adult3$education.num <- replace_na(adult3$education.num, mean_education.num)
 
-    adult_median$hours.per.week[is.na(adult_median$hours.per.week)] <- median(adult_median$hours.per.week, na.rm = TRUE)
+    majority_marital.status <- names(which.max(table(adult3$marital.status)))
+    adult3$marital.status <- replace_na(adult3$marital.status, majority_marital.status)
 
-    get_mode <- function(x) {
-      x <- x[!is.na(x)]
-      names(sort(table(x), decreasing = TRUE))[1]
-    }
-    adult_median$workclass[is.na(adult_median$workclass)] <- get_mode(adult_median$workclass)
+    majority_occupation <- names(which.max(table(adult3$occupation)))
+    adult3$occupation <- replace_na(adult3$occupation, majority_occupation)
 
-    adult_median$education[is.na(adult_median$education)] <- get_mode(adult_median$education)
+    majority_relationship <- names(which.max(table(adult3$relationship)))
+    adult3$relationship <- replace_na(adult3$relationship, majority_relationship)
 
-    adult_median$marital.status[is.na(adult_median$marital.status)] <- get_mode(adult_median$marital.status)
+    majority_race <- names(which.max(table(adult3$race)))
+    adult3$race <- replace_na(adult3$race, majority_race)
 
-    adult_median$occupation[is.na(adult_median$occupation)] <- get_mode(adult_median$occupation)
+    majority_sex <- names(which.max(table(adult3$sex)))
+    adult3$sex <- replace_na(adult3$sex, majority_sex)
 
-    adult_median$relationship[is.na(adult_median$relationship)] <- get_mode(adult_median$relationship)
+    mean_capitol.gain <- mean(adult3$capital.gain, na.rm=TRUE)
+    adult3$capital.gain <- replace_na(adult3$capital.gain, mean_capitol.gain)
 
-    adult_median$race[is.na(adult_median$race)] <- get_mode(adult_median$race)
+    mean_capitol.loss <- mean(adult3$capital.loss, na.rm=TRUE)
+    adult3$capital.loss <- replace_na(adult3$capital.loss, mean_capitol.loss)
 
-    adult_median$sex[is.na(adult_median$sex)] <- get_mode(adult_median$sex)
+    mean_hours.per.week <- mean(adult3$hours.per.week, na.rm=TRUE)
+    adult3$hours.per.week <- replace_na(adult3$hours.per.week, mean_hours.per.week)
 
-    adult_median$native.country[is.na(adult_median$native.country)] <- get_mode(adult_median$native.country)
+    majority_native.country <- names(which.max(table(adult3$native.country)))
+    adult3$native.country <- replace_na(adult3$native.country, majority_native.country)
 
-    adult_median$income[is.na(adult_median$income)] <- get_mode(adult_median$income)
+    majority_income <- names(which.max(table(adult3$income)))
+    adult3$income <- replace_na(adult3$income, majority_income)
 
-    colSums(is.na(adult_median))
+    aggr(adult3)
     ```

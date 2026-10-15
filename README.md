@@ -8,7 +8,9 @@
 
 [Assignment 4](assignment4q.html)
 
-[Assignment 5] ()
+[Assignment 5 p1](assignment5_part1.html)
+
+[Assignment 5 p2]()
 
 [Assignment 6](assignment6.html)
 
