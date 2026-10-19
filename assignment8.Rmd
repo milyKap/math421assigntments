@@ -28,7 +28,6 @@ knitr::opts_chunk$set(message = FALSE)
 1.  Install two packages `gganimate` and `gifski` then restart Rstudio. Using the `Adult Census Income` data, make an animation using `geom_point` and `transition_states`.
 
     ```{r}
- 
     library(gganimate)
     library(gifski)
     library(dplyr)
@@ -39,8 +38,9 @@ knitr::opts_chunk$set(message = FALSE)
     ```{r}
 
     adult <- read_csv("C:/Users/student/OneDrive - Bryant University/Documents/GitHub/math421assigntments/adult_census_missing.csv")
+    adult <- drop_na(adult)
     adult %>% ggplot(aes(x = hours.per.week,
-               y = age, color = race))+
+               y = age, color = income))+
       geom_point()+
       transition_states(sex)+
       labs(title = 'sex: {closest_state}')
@@ -50,7 +50,7 @@ knitr::opts_chunk$set(message = FALSE)
 
     ```{r}
     adult %>% ggplot(aes(x = sex,
-               fill = marital.status))+
+               fill = income))+
       geom_bar(position = 'fill')+
       transition_states(race)+
       labs(title = 'race: {closest_state}')
