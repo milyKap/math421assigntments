@@ -34,12 +34,69 @@ Hint:
 
 -   Pipe with `arrange(-Cumulative_deaths)` to rank the data by the number of cumulative deaths
 
+    ```{r}
+    library(tidyverse)
+    library(gganimate)
+    library(ggplot2)
+    library(lubridate)
+    covid <- read_csv("C:/Users/student/OneDrive - Bryant University/Documents/GitHub/math421assigntments/WHO-COVID-19-global-data.csv")
+    ```
+
+    ```{r}
+    covid %>%
+      filter(Date_reported == max(Date_reported)) %>%
+      arrange(-Cumulative_deaths) %>%
+      slice_head(n = 3)
+    ```
+
 2.  Use `transition_reveal` to make a plot revealing the number of deaths in the three countries with the most numbers of deaths
+
+    ```{r}
+    covid %>%
+      filter(Country %in% c("United States of America", "Brazil", "India")) %>%
+      ggplot(aes(y=Cumulative_deaths,
+                 x=Date_reported,
+                 color=Country)) +
+      geom_line()+
+      transition_reveal(Date_reported)
+    ```
 
 3.  Create the new variable (column) `death_per_cases` recording the number of deaths per cases (Hint: divide cumulative deaths by cumulative cases). What are the three countries with the highest deaths per cases?
 
+    ```{r}
+    covid1 <- covid %>%
+      mutate(death_per_cases = Cumulative_deaths / Cumulative_cases)
+
+    covid1 %>%
+      filter(Date_reported == max(Date_reported)) %>%
+      arrange(-death_per_cases) %>%
+      slice_head(n = 3)
+    ```
+
 4.  Use `transition_reveal` to make a plot revealing the number of deaths per cases of the US, Italy and Mexico.
+
+    ```{r}
+    covid1 %>%
+      filter(Country %in% c("United States of America", "Italy", "Mexico")) %>%
+      ggplot(aes(y=death_per_cases,
+                 x=Date_reported,
+                 color=Country)) +
+      geom_line()+
+      transition_reveal(Date_reported)
+    ```
 
 5.  Import the following data <https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.csv>
 
 Use `transition_reveal` to plot the total vaccinations per hundred by level of income. Hint: the levels of income are identified in the `location` variable. Put a short comment on the caption of the plot.
+
+```{r}
+vaccine <- read_csv("https://bryantstats.github.io/math421/data/vaccinations.csv")
+
+vaccine %>%
+  filter(location %in% c("H igh income","Upper middle income", "Lower middle income", "Low income")) %>%
+  ggplot(aes(y=people_vaccinated_per_hundred,
+             x=date,
+             color=location)) +
+  geom_line()+
+  transition_reveal(date)
+```

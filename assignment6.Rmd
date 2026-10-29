@@ -34,7 +34,7 @@ Choose a dataset and produce the following types of plots and comment on each pl
 library(tidyverse)
 library(ggplot2)
 titanic <- read_csv("C:/Users/student/OneDrive - Bryant University/Documents/GitHub/math421assigntments/titanic.csv")
-titanic$Pclass <- as.factor(Pclass)
+titanic$Pclass <- as.factor(titanic$Pclass)
 ```
 
 1.  For one continuous variable:
@@ -118,9 +118,9 @@ titanic$Pclass <- as.factor(Pclass)
 
     ```{r}
     titanic %>% ggplot()+
-      geom_bar(mapping = aes(x = Survived, fill = Sex), position = "fill")
-    
-    
+      geom_bar(mapping = aes(x = Survived, fill = Pclass), position = "fill")
+
+
     ```
 
 ------------------------------------------------------------------------
@@ -128,6 +128,8 @@ titanic$Pclass <- as.factor(Pclass)
 6.  A plot that contains three variables
 
     ```{r}
-    titanic %>% ggplot()+
+    titanic %>%
+      filter(Survived=='1') %>%
+      ggplot()+
       geom_point(aes(x = Fare, y = Age, color = Sex))
     ```
