@@ -1,0 +1,117 @@
+---
+title: "Hospital Discarge Data"
+output: ioslides_presentation
+date: "by Emily Kaprinski"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, include=FALSE}
+library(haven)
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(gganimate)
+library(lubridate)
+library(caret)
+library(rpart)
+library(rattle)
+```
+
+# Overview
+
+-   Data is from the Rhode Island Department of Health
+
+-   Only looked at data from the year 2018
+
+-   Used a sample size of 1000 due to large dataset size
+
+# Parts 1 and 2
+
+## 1. Total Hospital Admissions by Month
+
+-   Shows the patient admissions per month
+
+![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/graph1.png){width="70%"}
+
+## 2. Hospital Admissions between Males and Females
+
+-   compared patient admissions by sex and month
+
+    ![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/graph2.png){width="70%"}
+
+## 3. Teenage Female Admissions by Month
+
+-   shows the amount of female teenager admissions per month
+
+-   interested because there are some months that do have zero
+
+    ![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/graph3.png){width="70%"}
+
+## 4. Distribution of Age by Male and Female
+
+-   comparing the differences in the mean ages by sex
+
+-   males have a higher average
+
+    ![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/graph4.png){width="70%"}
+
+## 5. Average Age of Admitted Patients by Month
+
+-   average age per month
+
+-   y axis is from 47 - 56 to show more variation
+
+    ![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/graph5.gif){width="60%"}
+
+## 6. Length of Stay
+
+-   shows the distribution of the length of stay
+
+-   typically has some outliers, skewed to the right
+
+![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/graph6.png){width="70%"}
+
+## 7. Average Length of Stay by Season
+
+-   using the seasons variables we created in part 1 to see the difference in los
+
+![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/graph7.png){width="70%"}
+
+## 8. Charges vs Length of Stay
+
+-   shows the differences in cost based on los
+
+![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/graph8.png){width="70%"}
+
+## 9. Age vs Charges
+
+-   shows the differences in cost based on age (not much difference)
+
+![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/graph9.png){width="70%"}
+
+## 10. Hospital Admission by Admission Type
+
+-   shows the different types of admissions and how many patients were admitted per type
+
+    ![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/graph10.png){width="70%"}
+
+# Part 3
+
+## The Decision Tree
+
+![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/var_imp.png)
+
+## Separate Models + Accuracy
+
+![](C:/Users/student/OneDrive%20-%20Bryant%20University/Documents/GitHub/math421assigntments/results.png)
+
+## Errors/Challenges
+
+-   Originally had an issue with some variables being characters (ex: los variable)
+
+-   Ran into some issues creating the presentation itself
+
+-   Large dataset caused laptop to crash a lot

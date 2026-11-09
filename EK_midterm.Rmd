@@ -1,0 +1,45 @@
+---
+title: "EK_midterm"
+output: html_document
+date: "2026-10-29"
+--insta
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+## Creating a smaller sample
+```{r}
+library(haven)
+dat1 <- read_sas('C:/Users/student/Downloads/Copy of hdd0318cy.sas7bdat')
+
+dat <- dat1 %>%
+  select(yod, age, sex, raceethn, provider,
+    yoa, moa, mod, admtype, asource, service, icu, ccu,
+    dispub92, payer, drg, trandb, randbg, randbs, orr, anes, seq,
+    lab, dtest, ther, blood, phar, other, patcon, bwght, total, tot, ecodub92, b_wt, pt_state, didata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAbElEQVR4Xs2RQQrAMAgEfZgf7W9LAguybljJpR3wEse5JOL3ZObDb4x1loDhHbBOFU6i2Ddnw2KNiXcdAXygJlwE8OFVBHDgKrLgSInN4WMe9iXiqIVsTMjH7z/GhNTEibOxQswcYIWYOR/zAjBJfiXh3jZ6AAAAAElFTkSuQmCCag_adm, ancilar, campus, er_fee,
+    er_chrg, er_mode, obs_chrg, psycchrg)
+
+##5 + 6
+colSums(is.na(dat))
+
+n <- nrow(dat)
+sample_dat <- dat[sample(1:n, 1000), ]
+
+##7
+##MOA = month of admission
+##MOD = month of discharge
+
+##8
+sample_dat %>% group_by(sample_dat$moa)
+
+
+##
+
+```
+

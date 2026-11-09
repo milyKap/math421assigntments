@@ -1,0 +1,503 @@
+---
+title: "Midterm Question/Answers"
+output: html_document
+date: "2026-11-05"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+```{r}
+library(haven)
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(gganimate)
+library(lubridate)
+library(caret)
+library(rpart)
+library(rattle)
+```
+
+## PART I
+
+```{r}
+#Q1-4
+dat1 <- read_sas('C:/Users/student/Downloads/Copy of hdd0318cy.sas7bdat')
+
+dat <- dat1 %>%
+  select(yod, age, sex, raceethn, provider,
+    yoa, moa, mod, admtype, asource, service, icu, ccu, los,
+    dispub92, payer, drg, trandb, randbg, randbs, orr, anes, seq, lab, dtest, ther, blood, phar, other, patcon, bwght, total, tot, ecodub92, b_wt, pt_state, diag_adm, ancilar, campus, er_fee, er_chrg, er_mode, obs_chrg, psycchrg)
+
+
+colSums(is.na(dat))
+
+mean_moa <- round(mean(dat$moa, na.rm=TRUE), 0)
+dat$moa <- replace_na(dat$moa, mean_moa)
+
+mean_mod <- round(mean(dat$mod, na.rm=TRUE), 0)
+dat$mod <- replace_na(dat$mod, mean_moa)
+
+mean_los <- round(mean(dat$los, na.rm=TRUE), 0)
+dat$los <- replace_na(dat$los, mean_moa)
+
+dat2 <- dat %>%
+  filter(yod == 18)
+
+n <- nrow(dat2)
+sample_dat <- dat2[sample(1:n, 1000), ]
+```
+
+```{r}
+##5 +6
+colSums(is.na(sample_dat))
+#no variables were missing data
+
+##7
+##MOA = month of admission
+##MOD = month of discharge
+
+##8
+#total
+sample_dat %>%
+  group_by(moa) %>%
+  summarise(patient_count = n()) %>%
+  arrange(desc(patient_count))
+#ANSWER: MARCH
+
+#male
+sample_dat %>%
+  filter(sex == 1) %>%
+  group_by(moa) %>%
+  summarise(patient_count = n()) %>%
+  arrange(desc(patient_count))
+
+
+```
+
+```{r}
+##9
+sample_dat %>%
+  filter(sex == 2, age >= 13, age <= 19) %>%
+  group_by(moa) %>%
+  summarise(patient_count = n()) %>%
+  arrange(desc(patient_count))
+```
+
+```{r}
+##10
+sample_dat %>%
+  filter(sex == 2, moa == 10) %>%
+  group_by(provider) %>%
+  summarise(patient_count = n()) %>%
+  arrange(desc(patient_count))
+```
+
+```{r}
+##11
+sample_dat %>%
+  group_by(sex) %>%
+  summarise(average_age = mean(age, na.rm = TRUE))
+```
+
+```{r}
+##12
+sample_dat %>%
+  group_by(moa) %>%
+  summarise(average_age = mean(age, na.rm = TRUE)) %>%
+  arrange(desc(average_age))
+```
+
+```{r}
+##13
+sample_dat$total <- as.numeric(sample_dat$total)
+sample_dat %>%
+  group_by(provider) %>%
+  summarise(total_charges = sum(total, na.rm = TRUE)) %>%
+  arrange(desc(total_charges))
+```
+
+```{r}
+##14
+sample_dat %>%
+  filter(sex == 1, age >= 13, age <= 19) %>%
+  group_by(provider) %>%
+  summarise(average_charge = mean(total, na.rm = TRUE)) %>%
+  arrange(average_charge)
+```
+
+```{r}
+##15
+sample_dat <- sample_dat %>%
+  mutate(season = case_when(
+      moa %in% c(12, 1, 2) ~ "winter",
+      moa %in% c(3, 4, 5) ~ "spring",
+      moa %in% c(6, 7, 8) ~ "summer",
+      moa %in% c(9, 10, 11) ~ "fall"))
+sample_dat %>%
+  group_by(season) %>%
+  summarise(average_los = mean(los, na.rm = TRUE)) %>%
+  arrange(desc(average_los))
+```
+
+```{r}
+##16
+sample_dat %>%
+  filter(age == 20, sex == 1, los == 1, season == "fall"
+  ) %>%
+  summarise(average_charge = mean(total, na.rm = TRUE))
+```
+
+17
+
+in this section, we more or less checked through the data for specifics about the hospitalizations, whether it was more general like the average amount admitted, or more specific like the last question. It seems like the months with the highest admission rates lie around march and april, and given one of the graphs i created for the next section, it seems like more women are admitted around these times. It also seems like the 7205 provider had the highest total costs, since it was at the top of that question, and also listed on the providers for teenage men. there is a lot you can do with this data, but when using a sample size of 1000, there may be some cases where there are no results. this was seen in the final question, where we narrowed the specifics by 4 categories. Because it was so specific, our sample size seemed to not have any data that matched up with those requirements.
+
+## PART II
+
+paragraph: In this section, i decided to do a mixture of graphs from the questions we were asked in part one, and some that I came up with myself. I wanted to compare some things that were brought up from part one, such as the difference in admissions based on season, and the spread of charges based on the length of stay. Some of the graphs that were things asked from part one include the second graph which shows the admissions per month by sex. It is a mixture of the question asked, since i wanted to include females alongside the males to see if there was a difference there. I also used a graph from the question about the amount of teenage girls admitted, since there were some months in which there were actually zero admissions, and I thought it would be a good idea to display there being no info for those months.
+
+## PART III
+
+```{r}
+library(caret)
+library(rpart)
+library(rattle)
+```
+
+```{r}
+##1
+
+model_dat <- sample_dat %>%
+  filter(raceethn != "", admtype != "") %>%
+  mutate(
+    charge_rank = ifelse(
+      tot < median(tot, na.rm = TRUE),
+      "low",
+      "high"),
+    charge_rank = as.factor(charge_rank),
+    sex = as.factor(sex),
+    raceethn = as.factor(raceethn),
+    provider = as.factor(provider),
+    moa = as.factor(moa),
+    mod = as.factor(mod),
+    admtype = as.factor(admtype),
+    campus = as.factor(campus)) %>%
+  select(
+    charge_rank, age, sex, raceethn, provider,
+    moa, mod, admtype, campus, los)
+
+set.seed(8)
+
+training <- createDataPartition(
+  model_dat$charge_rank,
+  p = 0.10,
+  list = FALSE
+)
+
+train_dat <- model_dat[training, ]
+
+test_dat <- model_dat[-training, ]
+```
+
+```{r}
+##2
+tree_model <- rpart(
+  charge_rank ~ age + sex + raceethn + provider +
+    moa + mod + admtype + campus + los,
+  data = train_dat,
+  method = "class")
+
+fancyRpartPlot(
+  tree_model,
+  main = "decision tree for predicting hospital charges")
+
+
+barplot(tree_model$variable.importance)
+ggsave('var_imp.png')
+```
+
+```{r}
+##3
+control <- trainControl(
+  method = "cv",
+  number = 5
+)
+#Model 1
+set.seed(10)
+
+model1 <- train(charge_rank ~ age + sex + raceethn + provider +
+    moa + mod + admtype + campus + los, data = train_dat,
+  method = "rpart2",
+  trControl = control,
+  tuneLength = 5
+)
+
+#Model 2
+set.seed(14)
+
+model2 <- train(charge_rank ~ age + sex + raceethn + provider +
+    moa + mod + admtype + campus + los, data = train_dat,
+  method = "rf",
+  trControl = control,
+  tuneLength = 5
+)
+
+```
+
+```{r}
+##4
+results <- resamples(list(
+  "decision tree" = model1,
+  "random forest" = model2
+))
+
+bwplot(results)
+ggsave('results.png')
+```
+
+```{r}
+##5 
+pred <- predict(model1, test_dat)
+
+cm <- confusionMatrix(
+  data = pred,
+  reference = test_dat$charge_rank,
+  positive = "high"
+)
+
+cm$overall[1]
+```
+
+```{r}
+##6 this ones really big
+median_los <- median(sample_dat$los, na.rm = TRUE)
+
+sample_dat <- sample_dat %>%
+  mutate(stay_rank = ifelse(los <= median_los, "short", "long")
+  )
+
+sample_dat$stay_rank <- as.factor(sample_dat$stay_rank)
+
+table(sample_dat$stay_rank)
+
+model_dat2 <- sample_dat %>%
+  filter(raceethn != "", admtype != "")
+
+model_dat2 <- model_dat2 %>%
+  mutate(
+    sex = as.factor(sex),
+    raceethn = as.factor(raceethn),
+    provider = as.factor(provider),
+    moa = as.factor(moa),
+    mod = as.factor(mod),
+    admtype = as.factor(admtype),
+    campus = as.factor(campus),
+    age = as.numeric(age),
+    stay_rank = as.factor(stay_rank)
+  )
+
+str(model_dat2)
+
+table(model_dat2$stay_rank)
+
+set.seed(11)
+
+train_index2 <- createDataPartition(
+  model_dat2$stay_rank,
+  p = 0.10,
+  list = FALSE
+)
+
+train_dat2 <- model_dat2[train_index2, ]
+test_dat2 <- model_dat2[-train_index2, ]
+
+
+```
+
+```{r}
+tree_model <- rpart(
+  charge_rank ~ age + sex + raceethn + provider +
+    moa + mod + admtype + campus + los,
+  data = train_dat,
+  method = "class")
+
+fancyRpartPlot(tree_model,
+  main = "decision tree for predicting hospital charges")
+```
+
+# PRESENTATION CODE:
+
+```{r}
+#1
+sample_dat %>%
+  group_by(moa) %>%
+  summarise(patient_count = n()) %>%
+  ggplot(aes(x = moa, y = patient_count)) +
+  geom_col(fill = "pink", width = 0.7) +
+  scale_x_continuous(
+    breaks = 1:12,
+    labels = month.abb)
+ggsave('graph1.png')
+```
+
+```{r}
+#2
+sample_dat %>%
+  mutate(sex = case_when(
+    sex == 1 ~ "male",
+    sex == 2 ~ "female"
+  )) %>%
+  group_by(moa, sex) %>%
+  summarise(patient_count = n()) %>%
+  ggplot(aes(x = moa, y = patient_count, fill = sex)) +
+  geom_col(position = 'dodge') +
+  labs(
+    title = "hospital admissions by month and sex",
+    fill = 'sex'
+  ) +
+  scale_x_continuous(
+  breaks = 1:12,
+  labels = month.abb
+)
+ggsave('graph2.png')
+```
+
+```{r}
+#3
+sample_dat %>%
+  filter(sex == 2, age >= 13, age <= 19) %>%
+  group_by(moa) %>%
+  summarise(patient_count = n()) %>%
+  ggplot(aes(x = moa, y = patient_count)) +
+  geom_col(fill = "pink") +
+  labs(
+    title = "teenage female admissions by month",
+  ) +
+  scale_x_continuous(
+  breaks = 1:12,
+  labels = month.abb
+)
+ggsave('graph3.png')
+```
+
+```{r}
+#4
+sample_dat %>%
+  mutate(sex = case_when(
+    sex == 1 ~ "Male",
+    sex == 2 ~ "Female"
+  )) %>%
+  ggplot(aes(x = sex, y = age, fill = sex)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c(
+    "Female" = "pink",
+    "Male" = "skyblue"
+  )) +
+  labs(
+    title = "patient ages by sex")
+ggsave('graph4.png')
+```
+
+```{r}
+#5
+gif1 <- sample_dat %>%
+  group_by(moa) %>%
+  summarise(average_age = mean(age, na.rm = TRUE)) %>%
+  ggplot(aes(x = moa, y = average_age, group = 1)) +
+  geom_line(color = "navy", linewidth = 1) +
+  geom_point(color = "cyan", size = 3) +
+  scale_x_continuous(
+    breaks = 1:12,
+    labels = month.abb
+  ) +
+  labs(
+    title = "average patient age by month"
+  ) +
+  transition_reveal(moa)
+gif <- animate(gif1, duration = 10, fps = 20)
+anim_save('graph5.gif', animation = gif)
+```
+
+```{r}
+#6
+sample_dat %>%
+  ggplot(aes(x = los)) +
+  geom_histogram(
+    binwidth = 1,
+    fill = "magenta",
+    color = "white"
+  ) +
+  labs(
+    title = "length of stay distribution",
+    x = 'length of stay in days')
+ggsave('graph6.png')
+```
+
+```{r}
+#7
+sample_dat %>%
+  group_by(season) %>%
+  summarise(
+    average_los = mean(los, na.rm = TRUE)
+  ) %>%
+  ggplot(aes(x = season, y = average_los, fill = season)) +
+  geom_col(width = 0.7) +
+  geom_text(
+    aes(label = round(average_los, 2)),
+    vjust = -0.5
+  ) +
+  labs(
+    title = "average hospital stay by season",
+    y = 'average length of stay')
+ggsave('graph7.png')
+```
+
+```{r}
+#8
+sample_dat$total <- as.numeric(sample_dat$total)
+sample_dat %>%
+  ggplot(aes(x = los, y = total)) +
+  geom_point(
+    color = "magenta",
+    alpha = 0.5
+  ) +
+  labs(
+    title = "hospital charge",
+    x = 'length of stay in days',
+    y = 'total charges')
+ggsave('graph8.png')
+```
+
+```{r}
+#9
+sample_dat$total <- as.numeric(sample_dat$total)
+sample_dat %>%
+  ggplot(aes(x = age, y = total)) + 
+  geom_point(
+    color = "skyblue",
+    alpha = 0.5,
+    position = position_jitter(width = 0.2, height = 0)) +
+      labs(
+        title = "hospital charges vs patient age")
+ggsave('graph9.png')
+```
+
+```{r}
+#10
+sample_dat %>%
+  group_by(admtype) %>%
+  summarise(patient_count = n()) %>%
+  ggplot(aes(x = reorder(as.factor(admtype), -patient_count),
+             y = patient_count)) +
+  geom_col(fill = "skyblue", width = 0.7) +
+  labs(
+    title = "hospital admissions by admission type",
+    x = 'admission type')
+ggsave('graph10.png')
+```

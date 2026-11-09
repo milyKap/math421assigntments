@@ -58,9 +58,30 @@ knitr::opts_chunk$set(message = FALSE)
     adult_tree <- rpart(income ~ ., data = adult_train,
                         control = rpart.control(maxdepth = 3))
     fancyRpartPlot(adult_tree)
+
+    predict1 <- predict(adult_tree, adult_test, type = 'class')
+    cm1 <- confusionMatrix(data = predict1, reference = adult_test$income, positive = '1')
+    cm1$overall[1]
+
+    adult_tree$variable.importance
+    barplot(adult_tree$variable.importance)
     ```
 
 3.  Create 3 more trees and compare the testing accuracy of these trees, which tree give the highest testing accuracy.
+
+    ```{r}
+    adult_tree2 <- rpart(income ~ ., data = adult_train,
+                        control = rpart.control(maxdepth = 3))
+    fancyRpartPlot(adult_tree2)
+
+    adult_tree3 <- rpart(income ~ ., data = adult_train,
+                        control = rpart.control(maxdepth = 3))
+    fancyRpartPlot(adult_tree3)
+
+    adult_tree4 <- rpart(income ~ ., data = adult_train,
+                        control = rpart.control(maxdepth = 3))
+    fancyRpartPlot(adult_tree4)
+    ```
 
 4.  Practice Random Forest. Do the follows:
 
