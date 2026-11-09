@@ -25,3 +25,4 @@
 
 
 [Midterm](midterm_pres.html)
+[Midterm Notebook](midterm_notebook.html)
