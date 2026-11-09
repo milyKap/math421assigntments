@@ -21,3 +21,7 @@
 [Assignment 9](assignment9.html)
 
 [Assignment 10](assignment10.html)
+
+
+
+[Midterm](midterm_pres.html)
